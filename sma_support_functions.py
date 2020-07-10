@@ -30,12 +30,28 @@ from sklearn.metrics import mean_squared_error
 
 import importlib
 
+PROJDIR = 'sma_plot_generator'
+
 DATADIR = 'stock_files'
 GRAPHDIR = 'stock_graphs'
 SPLITSDIR = 'split_files'
 
 plt.style.use('seaborn-whitegrid')
 
+
+# Move to Current Dir
+
+current_dir = str( os.getcwd() ) + PROJDIR
+
+try:
+    # Change the current working Directory    
+    os.chdir(current_dir)
+    print("Env thinks its exec at [%s]" % str( os.getcwd() ) )
+except OSError:
+    print("Env thinks its exec at [%s]" % str( os.getcwd() ) )
+    print("Can't change the Current Working Directory")   
+
+print("Env thinks the user is [%s]" % str( getpass.getuser() ) )
 
 ### Begin Functions definitions
 
@@ -281,9 +297,6 @@ def lagging(df, lag, time_index):
     plt.plot(df_pred_lag)
     
 #print("compiled: ",__name__)
-
-print("Env thinks the user is [%s]" % str( getpass.getuser() ) )
-print("Env thinks its exec at [%s]" % str( os.getcwd() ) )
 
 
 
