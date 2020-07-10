@@ -21,35 +21,35 @@
 
 ### get pip
 
-'''
+```
 sudo easy_install pip
 sudo pip install --upgrade pip
-'''
+```
 
 ### get virtual env
 
-'''
+```
 pip install virtualenv
-'''
+```
 
 ### set up virtual env
-'''
+```
 python3 -m venv /path_to_dir/
-'''
+```
 
 ### activate the venv
-'''
+```
 source bin/activate
-'''
+```
 
 ### install packages
-'''
+```
 ./setuplibs_mac.sh
-'''
+```
 
 or
 
-'''
+```
 
 pip install --upgrade pip
 
@@ -65,5 +65,5 @@ pip3 install yahoofinancials --upgrade
 pip3 install sklearn --upgrade
 pip3 install tensorflow --upgrade
 pip3 install keras --upgrade
-'''
+```
 
