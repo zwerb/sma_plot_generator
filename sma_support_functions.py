@@ -45,7 +45,7 @@ FULLDIR = str( os.getcwd() ) + '/' + PROJDIR
 
 DEBUGON = False
 
-print("Env thinks its exec at [%s]" % str( os.getcwd() ) )
+#print("Env thinks its exec at [%s]" % str( os.getcwd() ) )
 try:
     # Change the current working Directory    
     os.chdir(FULLDIR)
@@ -105,9 +105,11 @@ def save_graph_to_date_dir(stock_ticker, graph_type, nDays, dt_previous, dt_late
         if not os.path.exists(path_ts):
             os.makedirs(path_ts)
         plt.savefig(path_ts+r'/'+stock_graph_name+r'.png')
-        print(path_ts+r'/'+stock_graph_name+".png")
+        newsavedpath = (path_ts+r'/'+stock_graph_name+".png")
+        return newsavedpath
     except:
-        print("Error! Could not save Plot as: ["+path_ts+r'/'+stock_graph_name+".png]")
+        savepatherror = "Error! Could not save Plot as: ["+path_ts+r'/'+stock_graph_name+".png]"
+        return savepatherror
 
 def print_sma_chart_days(stock_ticker, stock_pd, nDays):
     dt_latest = get_latest_date(stock_pd)
@@ -188,9 +190,21 @@ def online_process_stock_once(stock_ticker,nDays):
     stock_pd = enrich_stock_with_bbs(stock_pd)
     save_dataframe_as_csv(stock_pd,stock_ticker)
     #print(stock_ticker)
-    print_sma_chart_days(stock_ticker,stock_pd,nDays)
+    chartoutputpath = print_sma_chart_days(stock_ticker,stock_pd,nDays)
+    return chartoutputpath
+
+def online_process_stock_once_print(stock_ticker,nDays):
+    stock_df = yf.download(stock_ticker,progress=False)
+    stock_pd = convert_df_to_pd(stock_df)
+    stock_pd = enrich_stock_with_smas(stock_pd)
+    stock_pd = enrich_stock_with_bbs(stock_pd)
+    save_dataframe_as_csv(stock_pd,stock_ticker)
+    #print(stock_ticker)
+
+    chartoutputpath = print_sma_chart_days(stock_ticker,stock_pd,nDays)
+    print(chartoutputpath)
     
-def online_process_stock_once_WEB(stock_ticker,nDays):
+def online_process_stock_once_bounded(stock_ticker,nDays):
 
     dt_str_first_date = datetime.now() - timedelta(days=nDays)
     dt_str_first_date = dt_str_first_date.strftime("%Y-%m-%d")

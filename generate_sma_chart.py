@@ -24,7 +24,7 @@ import sma_support_functions as sa
 if len(sys.argv) == 3:
     ticker = sys.argv[1]
     days_range = sys.argv[2]
-    sa.online_process_stock_once(str(ticker), int(days_range))
+    print(sa.online_process_stock_once(str(ticker), int(days_range)))
 else:
     print ('invalid number of args. argv=[{}]'.format(str(sys.argv)))
     #ticker = input("Type a ticker: ")
