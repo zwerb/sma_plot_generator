@@ -10,4 +10,4 @@ if len(sys.argv) == 3:
 else:
     print ('invalid number of args. argv=[{}]'.format(str(sys.argv)))
 
-print('Bin: '+str(os.path.dirname(sys.executable))
+print('Bin: '+str(os.path.dirname(sys.executable)))
