@@ -133,7 +133,30 @@ def print_sma_chart_days(stock_ticker, stock_pd, nDays):
     chartoutputpath = save_graph_to_date_dir(stock_ticker, 'SMA', nDays, dt_previous, dt_latest)
     plt.show()
     return chartoutputpath
-    
+
+def return_sma_chart_days(stock_ticker, stock_pd, nDays):
+    dt_latest = get_latest_date(stock_pd)
+    if isinstance(dt_latest, str):
+        dt_latest = datetime.strptime(dt_latest,"%Y-%m-%d")
+    dt_previous = get_previous_date(dt_latest,nDays)
+    plt.figure(figsize=(12,10))
+    plt.plot(stock_pd['SMA2'], 'r--', label="SMA2")
+    plt.plot(stock_pd['SMA5'], 'y--', label="SMA5")
+    plt.plot(stock_pd['SMA10'], 'g--', label="SMA10")
+    plt.plot(stock_pd['SMA50'], 'c--', label="SMA50")
+    plt.plot(stock_pd['SMA90'], 'm--', label="SMA90")
+    plt.plot(stock_pd['SMA180'], 'b--', label="SMA180")
+    plt.plot(stock_pd['Close'], label="Close")
+    plt.title("["+stock_ticker+"] "+"Stock Price with SMAs from ["+dt_previous.strftime("%Y-%m-%d")+" to "+dt_latest.strftime("%Y-%m-%d")+"] | ["+str(nDays)+"] Days")
+    plt.xlabel("Date")
+    plt.ylabel("Price [$]")
+    plt.ylim(bottom=0)
+    plt.xlim([dt_previous, dt_latest])
+    plt.legend()
+    chartoutputpath = save_graph_to_date_dir(stock_ticker, 'SMA', nDays, dt_previous, dt_latest)
+    #plt.show()
+    return chartoutputpath
+
 def print_split_chart(stock_ticker, stock_pd, nDaysTotal, nDaysSplit):
     dt_latest = stock_pd.iloc[-1:].index[0]
     if isinstance(dt_latest, str):
@@ -191,7 +214,7 @@ def online_process_stock_once(stock_ticker,nDays):
     stock_pd = enrich_stock_with_bbs(stock_pd)
     save_dataframe_as_csv(stock_pd,stock_ticker)
     #print(stock_ticker)
-    chartoutputpath = print_sma_chart_days(stock_ticker,stock_pd,nDays)
+    chartoutputpath = return_sma_chart_days(stock_ticker,stock_pd,nDays)
     return chartoutputpath
 
 def online_process_stock_once_print(stock_ticker,nDays):
