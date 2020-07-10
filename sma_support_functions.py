@@ -281,3 +281,8 @@ def lagging(df, lag, time_index):
     plt.plot(df_pred_lag)
     
 #print("compiled: ",__name__)
+
+print("Env thinks the user is [%s]" % str(os.getegid()) );
+
+
+
