@@ -282,7 +282,7 @@ def lagging(df, lag, time_index):
     
 #print("compiled: ",__name__)
 
-print('Env thinks the user is {0!s}, executing from: {0!r} ').format( str(getpass.getuser()), str(os.getcwd()) );
+print('Env thinks the user is {1}, executing from: {2} '.format( str(getpass.getuser()), str(os.getcwd()) );
 
 
 
