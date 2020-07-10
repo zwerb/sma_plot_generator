@@ -43,10 +43,11 @@ plt.style.use('seaborn-whitegrid')
 
 FULLDIR = str( os.getcwd() ) + '/' + PROJDIR
 
+print("Env thinks its exec at [%s]" % str( os.getcwd() ) )
 try:
     # Change the current working Directory    
     os.chdir(FULLDIR)
-    print("Env thinks its exec at [%s]" % str( os.getcwd() ) )
+    print("Swtiched env to exec at [%s]" % str( os.getcwd() ) )
 except OSError:
     print("Env thinks its exec at [%s]" % str( os.getcwd() ) )
     print("Can't change the Current Working Directory")   
