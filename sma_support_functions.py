@@ -51,7 +51,7 @@ try:
     os.chdir(FULLDIR)
     #print("Swtiched env to exec at [%s]" % str( os.getcwd() ) )
 except OSError:
-    #print("Env thinks its exec at [%s]" % str( os.getcwd() ) )
+    print("Env thinks its exec at [%s]" % str( os.getcwd() ) )
     #print("Can't change the Current Working Directory")   
 
 #print("Env thinks the user is [%s]" % str( getpass.getuser() ) )
