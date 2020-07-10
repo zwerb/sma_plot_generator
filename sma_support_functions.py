@@ -265,7 +265,7 @@ def save_splits_to_csv(ticker, path_ts,stock_pd_split):
             os.makedirs(path_ts)
             #print("Created new Dir: ["+path_ts+"]")
     except:
-        #print("Error! Issue with creating/accessing: ["+path_ts+"]")
+        print("Error! Issue with creating/accessing: ["+path_ts+"]")
     container_name = ticker+'_container.csv' 
     train_name = ticker+'_train.csv'  
     test_name = ticker+'_test.csv'  
