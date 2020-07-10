@@ -15,7 +15,7 @@ from yahoofinancials import YahooFinancials
 from datetime import datetime, timedelta
 import matplotlib.pyplot as plt
 from os import listdir
-import os
+import os, getpass
 from os.path import isfile, join
 
 import csv
@@ -282,7 +282,7 @@ def lagging(df, lag, time_index):
     
 #print("compiled: ",__name__)
 
-print("Env thinks the user is [%s]" % str(os.getegid()) );
+print("Env thinks the user is [%s]" % str( getpass.getuser() ) );
 
 
 
