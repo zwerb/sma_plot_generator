@@ -130,8 +130,9 @@ def print_sma_chart_days(stock_ticker, stock_pd, nDays):
     plt.ylim(bottom=0)
     plt.xlim([dt_previous, dt_latest])
     plt.legend()
-    save_graph_to_date_dir(stock_ticker, 'SMA', nDays, dt_previous, dt_latest)
+    chartoutputpath = save_graph_to_date_dir(stock_ticker, 'SMA', nDays, dt_previous, dt_latest)
     plt.show()
+    return chartoutputpath
     
 def print_split_chart(stock_ticker, stock_pd, nDaysTotal, nDaysSplit):
     dt_latest = stock_pd.iloc[-1:].index[0]
@@ -205,7 +206,6 @@ def online_process_stock_once_print(stock_ticker,nDays):
     print(chartoutputpath)
     
 def online_process_stock_once_bounded(stock_ticker,nDays):
-
     dt_str_first_date = datetime.now() - timedelta(days=nDays)
     dt_str_first_date = dt_str_first_date.strftime("%Y-%m-%d")
     dt_str_latest_date = datetime.now().strftime("%Y-%m-%d")
@@ -215,7 +215,8 @@ def online_process_stock_once_bounded(stock_ticker,nDays):
     stock_pd = enrich_stock_with_bbs(stock_pd)
     save_dataframe_as_csv(stock_pd,stock_ticker)
     #print(stock_ticker)
-    print_sma_chart_days(stock_ticker,stock_pd,nDays)
+    chartoutputpath = print_sma_chart_days(stock_ticker,stock_pd,nDays)
+    return chartoutputpath
 
 def get_list_of_files_in_dir(dir_name):
     list_of_files_only = [f for f in listdir(dir_name) if isfile(join(dir_name, f))]
