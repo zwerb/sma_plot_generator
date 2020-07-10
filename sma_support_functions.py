@@ -12,7 +12,7 @@ import numpy as np
 import re
 import yfinance as yf
 from yahoofinancials import YahooFinancials
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 import matplotlib.pyplot as plt
 from os import listdir
 import os, getpass
@@ -43,16 +43,18 @@ plt.style.use('seaborn-whitegrid')
 
 FULLDIR = str( os.getcwd() ) + '/' + PROJDIR
 
+DEBUGON = False
+
 print("Env thinks its exec at [%s]" % str( os.getcwd() ) )
 try:
     # Change the current working Directory    
     os.chdir(FULLDIR)
-    print("Swtiched env to exec at [%s]" % str( os.getcwd() ) )
+    #print("Swtiched env to exec at [%s]" % str( os.getcwd() ) )
 except OSError:
-    print("Env thinks its exec at [%s]" % str( os.getcwd() ) )
-    print("Can't change the Current Working Directory")   
+    #print("Env thinks its exec at [%s]" % str( os.getcwd() ) )
+    #print("Can't change the Current Working Directory")   
 
-print("Env thinks the user is [%s]" % str( getpass.getuser() ) )
+#print("Env thinks the user is [%s]" % str( getpass.getuser() ) )
 
 ### Begin Functions definitions
 
@@ -103,7 +105,7 @@ def save_graph_to_date_dir(stock_ticker, graph_type, nDays, dt_previous, dt_late
         if not os.path.exists(path_ts):
             os.makedirs(path_ts)
         plt.savefig(path_ts+r'/'+stock_graph_name+r'.png')
-        print("Saved Plot as: ["+path_ts+r'/'+stock_graph_name+".png]")
+        print(path_ts+r'/'+stock_graph_name+".png")
     except:
         print("Error! Could not save Plot as: ["+path_ts+r'/'+stock_graph_name+".png]")
 
@@ -171,7 +173,7 @@ def save_dataframe_as_csv(stock_pd,stock_ticker):
         if not os.path.exists(path_ts):
             os.makedirs(path_ts)
         stock_pd.to_csv(path_ts+r'/'+stock_file_name)
-        print("Saved DataFrame as: ["+path_ts+r'/'+stock_file_name+"]")
+        #print("Saved DataFrame as: ["+path_ts+r'/'+stock_file_name+"]")
     except:
         print("Error! Could not save Dataframe as: ["+path_ts+r'/'+stock_file_name+"]")
 
@@ -180,7 +182,7 @@ def convert_df_to_pd(stock_df):
     return stock_pd
 
 def online_process_stock_once(stock_ticker,nDays):
-    stock_df = yf.download(stock_ticker)
+    stock_df = yf.download(stock_ticker,progress=False)
     stock_pd = convert_df_to_pd(stock_df)
     stock_pd = enrich_stock_with_smas(stock_pd)
     stock_pd = enrich_stock_with_bbs(stock_pd)
@@ -189,7 +191,11 @@ def online_process_stock_once(stock_ticker,nDays):
     print_sma_chart_days(stock_ticker,stock_pd,nDays)
     
 def online_process_stock_once_WEB(stock_ticker,nDays):
-    stock_df = yf.download(stock_ticker)
+
+    dt_str_first_date = datetime.now() - timedelta(days=nDays)
+    dt_str_first_date = dt_str_first_date.strftime("%Y-%m-%d")
+    dt_str_latest_date = datetime.now().strftime("%Y-%m-%d")
+    stock_df = yf.download(stock_ticker,start=dt_str_first_date, end=dt_str_latest_date, progress=False)
     stock_pd = convert_df_to_pd(stock_df)
     stock_pd = enrich_stock_with_smas(stock_pd)
     stock_pd = enrich_stock_with_bbs(stock_pd)
@@ -257,9 +263,9 @@ def save_splits_to_csv(ticker, path_ts,stock_pd_split):
     try:
         if not os.path.exists(path_ts):
             os.makedirs(path_ts)
-            print("Created new Dir: ["+path_ts+"]")
+            #print("Created new Dir: ["+path_ts+"]")
     except:
-        print("Error! Issue with creating/accessing: ["+path_ts+"]")
+        #print("Error! Issue with creating/accessing: ["+path_ts+"]")
     container_name = ticker+'_container.csv' 
     train_name = ticker+'_train.csv'  
     test_name = ticker+'_test.csv'  
