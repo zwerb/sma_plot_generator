@@ -2,6 +2,8 @@
 
 ## Get Started:
 
+0. Check out the implementation at www.a1dzx.com (7/17/20)
+
 1. See install instructions in sections below.
 
 2. Simple CMD Running:
