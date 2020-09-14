@@ -1,4 +1,4 @@
-# SMA Plot Generator
+# SMA Plot Generator - Python-based Yahoo Finance Stock Analysis
 
 ## Get Started:
 
