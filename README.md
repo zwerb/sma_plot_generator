@@ -6,7 +6,7 @@
 
 ## Get Started:
 
-# 2. Simple Startup (after Install):
+# Simple Startup (after Install):
 
 ### 1. To run the main script (after setup)
 
@@ -23,7 +23,7 @@ jupyter lab
 ```
 
 
-# 1. Install Instructions (first time)
+# Install Instructions (first time)
 
 ## MacOSX Get Started:
 
