@@ -16,7 +16,7 @@ source bin/activate
 python3 sma_generator.py TSLA 90
 ```
 
-### 2. Run Jupyter LAb
+### 2. Run Jupyter Lab
 
 ```
 jupyter lab
